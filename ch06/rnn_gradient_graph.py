@@ -1,7 +1,6 @@
 # coding: utf-8
-import numpy as np
 import matplotlib.pyplot as plt
-
+import numpy as np
 
 N = 2  # ミニバッチサイズ
 H = 3  # 隠れ状態ベクトルの次元数
@@ -12,12 +11,12 @@ dh = np.ones((N, H))
 np.random.seed(3)
 
 Wh = np.random.randn(H, H)
-#Wh = np.random.randn(H, H) * 0.5
+# Wh = np.random.randn(H, H) * 0.5
 
 norm_list = []
 for t in range(T):
     dh = np.dot(dh, Wh.T)
-    norm = np.sqrt(np.sum(dh**2)) / N
+    norm = np.sqrt(np.sum(dh ** 2)) / N
     norm_list.append(norm)
 
 print(norm_list)

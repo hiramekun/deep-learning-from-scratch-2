@@ -1,12 +1,12 @@
 # coding: utf-8
 import sys
+
 sys.path.append('..')
 import matplotlib.pyplot as plt
 import numpy as np
 from common.optimizer import SGD
 from dataset import ptb
 from simple_rnnlm import SimpleRnnlm
-
 
 # ハイパーパラメータの設定
 batch_size = 10
@@ -63,7 +63,7 @@ for epoch in range(max_epoch):
     # エポックごとにパープレキシティの評価
     ppl = np.exp(total_loss / loss_count)
     print('| epoch %d | perplexity %.2f'
-          % (epoch+1, ppl))
+          % (epoch + 1, ppl))
     ppl_list.append(float(ppl))
     total_loss, loss_count = 0, 0
 

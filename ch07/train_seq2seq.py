@@ -1,5 +1,6 @@
 # coding: utf-8
 import sys
+
 sys.path.append('..')
 import numpy as np
 import matplotlib.pyplot as plt
@@ -8,8 +9,6 @@ from common.optimizer import Adam
 from common.trainer import Trainer
 from common.util import eval_seq2seq
 from seq2seq import Seq2seq
-from peeky_seq2seq import PeekySeq2seq
-
 
 # データセットの読み込み
 (x_train, t_train), (x_test, t_test) = sequence.load_data('addition.txt')
@@ -59,4 +58,3 @@ plt.xlabel('epochs')
 plt.ylabel('accuracy')
 plt.ylim(0, 1.0)
 plt.show()
-

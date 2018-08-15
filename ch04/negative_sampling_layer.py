@@ -1,5 +1,6 @@
 # coding: utf-8
 import sys
+
 sys.path.append('..')
 from common.np import *  # import numpy as np
 from common.layers import Embedding, SigmoidWithLoss
@@ -61,7 +62,8 @@ class UnigramSampler:
                 target_idx = target[i]
                 p[target_idx] = 0
                 p /= p.sum()
-                negative_sample[i, :] = np.random.choice(self.vocab_size, size=self.sample_size, replace=False, p=p)
+                negative_sample[i, :] = np.random.choice(self.vocab_size, size=self.sample_size,
+                                                         replace=False, p=p)
         else:
             # GPU(cupy）で計算するときは、速度を優先
             # 負例にターゲットが含まれるケースがある

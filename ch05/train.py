@@ -1,11 +1,11 @@
 # coding: utf-8
 import sys
+
 sys.path.append('..')
 from common.optimizer import SGD
 from common.trainer import RnnlmTrainer
 from dataset import ptb
 from simple_rnnlm import SimpleRnnlm
-
 
 # ハイパーパラメータの設定
 batch_size = 10

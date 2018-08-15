@@ -1,12 +1,12 @@
 # coding: utf-8
 import sys
+
 sys.path.append('..')
 from common.optimizer import SGD
 from common.trainer import RnnlmTrainer
 from common.util import eval_perplexity
 from dataset import ptb
 from rnnlm import Rnnlm
-
 
 # ハイパーパラメータの設定
 batch_size = 20

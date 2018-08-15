@@ -1,5 +1,6 @@
 # coding: utf-8
 import sys
+
 sys.path.append('..')
 import numpy as np
 import matplotlib.pyplot as plt
@@ -8,9 +9,6 @@ from common.optimizer import Adam
 from common.trainer import Trainer
 from common.util import eval_seq2seq
 from attention_seq2seq import AttentionSeq2seq
-from ch07.seq2seq import Seq2seq
-from ch07.peeky_seq2seq import PeekySeq2seq
-
 
 # データの読み込み
 (x_train, t_train), (x_test, t_test) = sequence.load_data('date.txt')
@@ -49,7 +47,6 @@ for epoch in range(max_epoch):
     acc = float(correct_num) / len(x_test)
     acc_list.append(acc)
     print('val acc %.3f%%' % (acc * 100))
-
 
 model.save_params()
 

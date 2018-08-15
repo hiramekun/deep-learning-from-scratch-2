@@ -1,5 +1,6 @@
 # coding: utf-8
 import sys
+
 sys.path.append('..')
 from common import config
 # GPUで実行する場合は下記のコメントアウトを消去（要cupy）
@@ -11,7 +12,6 @@ from common.trainer import RnnlmTrainer
 from common.util import eval_perplexity, to_gpu
 from dataset import ptb
 from better_rnnlm import BetterRnnlm
-
 
 # ハイパーパラメータの設定
 batch_size = 20
@@ -59,7 +59,6 @@ for epoch in range(max_epoch):
 
     model.reset_state()
     print('-' * 50)
-
 
 # テストデータでの評価
 model.reset_state()

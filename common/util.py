@@ -1,5 +1,6 @@
 # coding: utf-8
 import sys
+
 sys.path.append('..')
 import os
 from common.np import *
@@ -121,7 +122,7 @@ def create_co_matrix(corpus, vocab_size, window_size=1):
     return co_matrix
 
 
-def ppmi(C, verbose=False, eps = 1e-8):
+def ppmi(C, verbose=False, eps=1e-8):
     '''PPMI（正の相互情報量）の作成
 
     :param C: 共起行列
@@ -136,13 +137,13 @@ def ppmi(C, verbose=False, eps = 1e-8):
 
     for i in range(C.shape[0]):
         for j in range(C.shape[1]):
-            pmi = np.log2(C[i, j] * N / (S[j]*S[i]) + eps)
+            pmi = np.log2(C[i, j] * N / (S[j] * S[i]) + eps)
             M[i, j] = max(0, pmi)
 
             if verbose:
                 cnt += 1
-                if cnt % (total//100) == 0:
-                    print('%.1f%% done' % (100*cnt/total))
+                if cnt % (total // 100) == 0:
+                    print('%.1f%% done' % (100 * cnt / total))
     return M
 
 
@@ -156,7 +157,7 @@ def create_contexts_target(corpus, window_size=1):
     target = corpus[window_size:-window_size]
     contexts = []
 
-    for idx in range(window_size, len(corpus)-window_size):
+    for idx in range(window_size, len(corpus) - window_size):
         cs = []
         for t in range(-window_size, window_size + 1):
             if t == 0:
@@ -269,7 +270,8 @@ def analogy(a, b, c, word_to_id, id_to_word, word_matrix, top=5, answer=None):
             return
 
     print('\n[analogy] ' + a + ':' + b + ' = ' + c + ':?')
-    a_vec, b_vec, c_vec = word_matrix[word_to_id[a]], word_matrix[word_to_id[b]], word_matrix[word_to_id[c]]
+    a_vec, b_vec, c_vec = word_matrix[word_to_id[a]], word_matrix[word_to_id[b]], word_matrix[
+        word_to_id[c]]
     query_vec = b_vec - a_vec + c_vec
     query_vec = normalize(query_vec)
 

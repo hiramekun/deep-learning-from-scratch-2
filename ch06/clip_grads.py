@@ -1,7 +1,6 @@
 # coding: utf-8
 import numpy as np
 
-
 dW1 = np.random.rand(3, 3) * 10
 dW2 = np.random.rand(3, 3) * 10
 grads = [dW1, dW2]

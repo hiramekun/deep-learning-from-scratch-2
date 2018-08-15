@@ -1,5 +1,6 @@
 # coding: utf-8
 import sys
+
 sys.path.append('..')
 import numpy
 import time
@@ -32,8 +33,8 @@ class Trainer:
             t = t[idx]
 
             for iters in range(max_iters):
-                batch_x = x[iters*batch_size:(iters+1)*batch_size]
-                batch_t = t[iters*batch_size:(iters+1)*batch_size]
+                batch_x = x[iters * batch_size:(iters + 1) * batch_size]
+                batch_t = t[iters * batch_size:(iters + 1) * batch_size]
 
                 # 勾配を求め、パラメータを更新
                 loss = model.forward(batch_x, batch_t)
@@ -158,7 +159,7 @@ def remove_duplicate(params, grads):
                     grads.pop(j)
                 # 転置行列として重みを共有する場合（weight tying）
                 elif params[i].ndim == 2 and params[j].ndim == 2 and \
-                     params[i].T.shape == params[j].shape and np.all(params[i].T == params[j]):
+                        params[i].T.shape == params[j].shape and np.all(params[i].T == params[j]):
                     grads[i] += grads[j].T
                     find_flg = True
                     params.pop(j)

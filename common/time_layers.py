@@ -1,7 +1,6 @@
 # coding: utf-8
-from common.np import *  # import numpy as np (or import cupy as np)
-from common.layers import *
 from common.functions import sigmoid
+from common.layers import *
 
 
 class RNN:
@@ -114,9 +113,9 @@ class LSTM:
         A = np.dot(x, Wx) + np.dot(h_prev, Wh) + b
 
         f = A[:, :H]
-        g = A[:, H:2*H]
-        i = A[:, 2*H:3*H]
-        o = A[:, 3*H:]
+        g = A[:, H:2 * H]
+        i = A[:, 2 * H:3 * H]
+        o = A[:, 3 * H:]
 
         f = sigmoid(f)
         g = np.tanh(g)
@@ -269,7 +268,7 @@ class TimeAffine:
         N, T, D = x.shape
         W, b = self.params
 
-        rx = x.reshape(N*T, -1)
+        rx = x.reshape(N * T, -1)
         out = np.dot(rx, W) + b
         self.x = x
         return out.reshape(N, T, -1)
@@ -279,8 +278,8 @@ class TimeAffine:
         N, T, D = x.shape
         W, b = self.params
 
-        dout = dout.reshape(N*T, -1)
-        rx = x.reshape(N*T, -1)
+        dout = dout.reshape(N * T, -1)
+        rx = x.reshape(N * T, -1)
 
         db = np.sum(dout, axis=0)
         dW = np.dot(rx.T, dout)
@@ -384,6 +383,7 @@ class TimeBiLSTM:
         dxs = dxs1 + dxs2
         return dxs
 
+
 # ====================================================================== #
 # 以下に示すレイヤは、本書で説明をおこなっていないレイヤの実装もしくは
 # 処理速度よりも分かりやすさを優先したレイヤの実装です。
@@ -421,7 +421,7 @@ class TimeSigmoidWithLoss:
         N, T = self.xs_shape
         dxs = np.empty(self.xs_shape, dtype='f')
 
-        dout *= 1/T
+        dout *= 1 / T
         for t in range(T):
             layer = self.layers[t]
             dxs[:, t] = layer.backward(dout)
@@ -449,8 +449,8 @@ class GRU:
 
         z = sigmoid(np.dot(x, Wxz) + np.dot(h_prev, Whz))
         r = sigmoid(np.dot(x, Wxr) + np.dot(h_prev, Whr))
-        h_hat = np.tanh(np.dot(x, Wx) + np.dot(r*h_prev, Wh))
-        h_next = (1-z) * h_prev + z * h_hat
+        h_hat = np.tanh(np.dot(x, Wx) + np.dot(r * h_prev, Wh))
+        h_next = (1 - z) * h_prev + z * h_hat
 
         self.cache = (x, h_prev, z, r, h_hat)
 
@@ -462,8 +462,8 @@ class GRU:
         Whz, Whr, Wh = self.Wh[:, :H], self.Wh[:, H:2 * H], self.Wh[:, 2 * H:]
         x, h_prev, z, r, h_hat = self.cache
 
-        dh_hat =dh_next * z
-        dh_prev = dh_next * (1-z)
+        dh_hat = dh_next * z
+        dh_prev = dh_next * (1 - z)
 
         # tanh
         dt = dh_hat * (1 - h_hat ** 2)
@@ -475,7 +475,7 @@ class GRU:
 
         # update gate(z)
         dz = dh_next * h_hat - dh_next * h_prev
-        dt = dz * z * (1-z)
+        dt = dz * z * (1 - z)
         dWhz = np.dot(h_prev.T, dt)
         dh_prev += np.dot(dt, Whz.T)
         dWxz = np.dot(x.T, dt)
@@ -483,7 +483,7 @@ class GRU:
 
         # rest gate(r)
         dr = dhr * h_prev
-        dt = dr * r * (1-r)
+        dt = dr * r * (1 - r)
         dWhr = np.dot(h_prev.T, dt)
         dh_prev += np.dot(dt, Whr.T)
         dWxr = np.dot(x.T, dt)
@@ -571,7 +571,7 @@ class Simple_TimeSoftmaxWithLoss:
         N, T, V = xs.shape
         dxs = np.empty(xs.shape, dtype='f')
 
-        dout *= 1/T
+        dout *= 1 / T
         for t in range(T):
             layer = layers[t]
             dxs[:, t, :] = layer.backward(dout)
@@ -612,7 +612,3 @@ class Simple_TimeAffine:
             self.db += layer.db
 
         return dxs
-
-
-
-
